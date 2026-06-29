@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日記 | 壮汰の日記</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1><a href="index.html">📖 壮汰の日記</a></h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <article id="post" class="post-detail"></article>
+  </main>
+
+  <script>
+    async function loadPost() {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+
+      const res = await fetch('posts.json');
+      const posts = await res.json();
+
+      const post = posts.find(p => p.id === id);
+
+      const container = document.getElementById('post');
+
+      if (!post) {
+        container.innerHTML = '<h2>記事が見つかりません</h2>';
+        return;
+      }
+
+      container.innerHTML = `
+        <h2>${post.title}</h2>
+        <div class="meta">${post.date} ・ ${post.tags.join(' / ')}</div>
+        <img src="${post.image}" alt="" class="detail-image">
+        <p>${post.content.replace(/\n/g, '<br>')}</p>
+      `;
+    }
+
+    loadPost();
+  </script>
+</body>
+</html>
