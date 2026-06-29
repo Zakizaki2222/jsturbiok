@@ -19,18 +19,18 @@
   "excerpt": "父の誕生日です！",
   "content": "今日は父の誕生日。プレゼントに扇子を贈った。喜んでくれてよかった。",
   "tags": ["家族", "誕生日"],
-  "image": "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop"
+  "image": "1000008723.jpg"
 },
   {
-    "id": "2026-06-27-school",
-    "title": "学校の課題を進めた",
+    "id": "2026-06-27-start",
+    "title": "日記の開始",
     "date": "2026/06/27",
-    "excerpt": "卒業研究の資料を整理した。",
-    "content": "恒星のエネルギーについて調べた内容をまとめてスライド化。\\n説明しやすいように図を追加した。",
+    "excerpt": "いい感じ",
+    "content": "今日から日記を開始した。毎日投稿するように頑張ります。",
     "tags": [
-      "学校",
-      "研究"
+      "記念",
+      "開始"
     ],
-    "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
+    "image": "20260330_135820.jpg"
   }
 ]
