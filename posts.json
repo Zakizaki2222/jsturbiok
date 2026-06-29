@@ -13,17 +13,14 @@
     "image": "1000008721.jpg"
   },
   {
-    "id": "2026-06-28-pc",
-    "title": "PC修理をした",
-    "date": "2026/06/28",
-    "excerpt": "友人のパソコンを分解して原因を調査。",
-    "content": "電源が入らないPCを預かって確認。\\nメモリの接触不良が原因で、清掃と差し直しで復活した。",
-    "tags": [
-      "PC",
-      "修理"
-    ],
-    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop"
-  },
+  "id": "2026-06-28-dad",
+  "title": "父の誕生日",
+  "date": "2026/06/28",
+  "excerpt": "父の誕生日です！",
+  "content": "今日は父の誕生日。プレゼントに扇子を贈った。喜んでくれてよかった。",
+  "tags": ["家族", "誕生日"],
+  "image": "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop"
+},
   {
     "id": "2026-06-27-school",
     "title": "学校の課題を進めた",
