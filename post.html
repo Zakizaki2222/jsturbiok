@@ -16,7 +16,20 @@
   <main class="container">
     <article id="post" class="post-detail"></article>
 
+    <section class="anon-comments">
+      <h3>コメント（匿名OK）</h3>
+
+      <div id="anonCommentList" class="anon-comment-list"></div>
+
+      <form id="anonCommentForm" class="anon-comment-form">
+        <input type="text" id="anonName" placeholder="名前（未入力なら「名無し」）" maxlength="30">
+        <textarea id="anonMessage" placeholder="コメントを書く…" maxlength="500" required></textarea>
+        <button type="submit">投稿する</button>
+      </form>
+    </section>
+
     <section class="comments">
+      <h3>コメント（GitHubアカウント）</h3>
       <script src="https://giscus.app/client.js"
         data-repo="Zakizaki2222/jsturbiok"
         data-repo-id="R_kgDOTIbZSQ"
@@ -35,16 +48,20 @@
     </section>
   </main>
 
-  <script>
-    async function loadPost() {
-      const params = new URLSearchParams(location.search);
-      const id = params.get('id');
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
+    const SUPABASE_URL = 'https://nksgixwpdnfatqluusxx.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_LXzFI1uEXA5xyyM5vIhl_Q_mY5PAakh';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const params = new URLSearchParams(location.search);
+    const postId = params.get('id');
+
+    async function loadPost() {
       const res = await fetch('posts.json');
       const posts = await res.json();
-
-      const post = posts.find(p => p.id === id);
-
+      const post = posts.find(p => p.id === postId);
       const container = document.getElementById('post');
 
       if (!post) {
@@ -60,7 +77,78 @@
       `;
     }
 
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    async function loadAnonComments() {
+      const list = document.getElementById('anonCommentList');
+      list.innerHTML = '読み込み中…';
+
+      const { data, error } = await supabase
+        .from('comments')
+        .select('*')
+        .eq('post_id', postId)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        list.innerHTML = '<p>コメントの読み込みに失敗しました。</p>';
+        console.error(error);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        list.innerHTML = '<p class="no-comments">まだコメントはありません。</p>';
+        return;
+      }
+
+      list.innerHTML = data.map(c => `
+        <div class="anon-comment">
+          <div class="anon-comment-head">
+            <span class="anon-comment-name">${escapeHtml(c.name)}</span>
+            <span class="anon-comment-date">${new Date(c.created_at).toLocaleString('ja-JP')}</span>
+          </div>
+          <p class="anon-comment-body">${escapeHtml(c.message).replace(/\n/g, '<br>')}</p>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('anonCommentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('anonName');
+      const messageInput = document.getElementById('anonMessage');
+
+      const name = nameInput.value.trim() || '名無し';
+      const message = messageInput.value.trim();
+
+      if (!message) return;
+
+      const submitBtn = e.target.querySelector('button');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '投稿中…';
+
+      const { error } = await supabase
+        .from('comments')
+        .insert([{ post_id: postId, name, message }]);
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = '投稿する';
+
+      if (error) {
+        alert('投稿に失敗しました。もう一度お試しください。');
+        console.error(error);
+        return;
+      }
+
+      messageInput.value = '';
+      loadAnonComments();
+    });
+
     loadPost();
+    loadAnonComments();
   </script>
 </body>
 </html>
