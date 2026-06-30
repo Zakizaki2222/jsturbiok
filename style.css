@@ -185,3 +185,107 @@ body.dark .tag {
     font-size: 26px;
   }
 }
+
+/* 匿名コメント欄 */
+.anon-comments {
+  background: white;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  margin: 24px 0;
+}
+
+.anon-comments h3,
+.comments h3 {
+  margin-top: 0;
+}
+
+.anon-comment-list {
+  margin-bottom: 24px;
+}
+
+.anon-comment {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 0;
+}
+
+.anon-comment:last-child {
+  border-bottom: none;
+}
+
+.anon-comment-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.anon-comment-name {
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.anon-comment-date {
+  color: #888;
+}
+
+.anon-comment-body {
+  margin: 0;
+  word-break: break-word;
+}
+
+.no-comments {
+  color: #888;
+}
+
+.anon-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.anon-comment-form input,
+.anon-comment-form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.anon-comment-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.anon-comment-form button {
+  align-self: flex-end;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.anon-comment-form button:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+body.dark .anon-comments {
+  background: #1f2937;
+}
+
+body.dark .anon-comment {
+  border-bottom-color: #374151;
+}
+
+body.dark .anon-comment-form input,
+body.dark .anon-comment-form textarea {
+  background: #111827;
+  border-color: #374151;
+  color: #f3f4f6;
+}
