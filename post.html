@@ -16,6 +16,10 @@
   <main class="container">
     <article id="post" class="post-detail"></article>
 
+    <div class="like-bar">
+      <button id="likeBtn" class="like-btn">❤️ <span id="likeCount">0</span></button>
+    </div>
+
     <section class="anon-comments">
       <h3>コメント（匿名OK）</h3>
 
@@ -76,6 +80,48 @@
         <p>${post.content.replace(/\n/g, '<br>')}</p>
       `;
     }
+
+    async function loadLikes() {
+      const { data, error } = await supabase
+        .from('likes')
+        .select('count')
+        .eq('post_id', postId)
+        .maybeSingle();
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      document.getElementById('likeCount').textContent = data ? data.count : 0;
+    }
+
+    document.getElementById('likeBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('likeBtn');
+      btn.disabled = true;
+
+      const { data: existing } = await supabase
+        .from('likes')
+        .select('count')
+        .eq('post_id', postId)
+        .maybeSingle();
+
+      const newCount = existing ? existing.count + 1 : 1;
+
+      const { error } = await supabase
+        .from('likes')
+        .upsert({ post_id: postId, count: newCount });
+
+      btn.disabled = false;
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      document.getElementById('likeCount').textContent = newCount;
+      btn.classList.add('liked');
+    });
 
     function escapeHtml(str) {
       const div = document.createElement('div');
@@ -149,6 +195,7 @@
 
     loadPost();
     loadAnonComments();
+    loadLikes();
   </script>
 </body>
 </html>
