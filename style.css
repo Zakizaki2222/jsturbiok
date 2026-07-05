@@ -339,3 +339,42 @@ body.dark .like-btn.liked {
   color: #ef4444;
   margin-left: 10px;
 }
+
+/* アプリ紹介バナー */
+.app-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #059669, #0891b2);
+  color: white;
+  border-radius: 20px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  text-decoration: none;
+  transition: transform .2s, opacity .2s;
+}
+
+.app-banner:hover {
+  transform: translateY(-2px);
+  opacity: .92;
+}
+
+.app-banner-icon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.app-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.app-banner-text strong {
+  font-size: 17px;
+}
+
+.app-banner-text span {
+  font-size: 14px;
+  opacity: .9;
+}
