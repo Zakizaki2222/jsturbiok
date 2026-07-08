@@ -60,6 +60,25 @@ body {
   cursor: pointer;
 }
 
+#mercariLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #ff0211;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .15s;
+}
+
+#mercariLink:hover {
+  opacity: .85;
+}
+
 .hero {
   background: linear-gradient(135deg, #2563eb, #7c3aed);
   color: white;
